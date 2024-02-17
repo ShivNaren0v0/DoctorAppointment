@@ -16,12 +16,12 @@ public class Payment {
         return paymentId;
     }
 
-    public Payment(Integer paymentId, LocalDate paymentDate, Double amount, Boolean successful, Appointment appointment) {
+    public Payment(Integer paymentId, LocalDate paymentDate, Double amount, Boolean successful) {
         this.paymentId = paymentId;
         this.paymentDate = paymentDate;
         this.amount = amount;
         this.successful = successful;
-        this.appointment = appointment;
+
     }
 
     public void setPaymentId(Integer paymentId) {
@@ -52,13 +52,6 @@ public class Payment {
         this.successful = successful;
     }
 
-    public Appointment getAppointment() {
-        return appointment;
-    }
-
-    public void setAppointment(Appointment appointment) {
-        this.appointment = appointment;
-    }
 
     @Id
     @GeneratedValue
@@ -67,8 +60,7 @@ public class Payment {
     private Double amount;
     private Boolean successful;
 
-    @OneToOne
-    private Appointment appointment;
+
 
 
 }
