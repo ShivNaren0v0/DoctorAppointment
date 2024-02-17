@@ -5,6 +5,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Patient {
@@ -18,7 +19,7 @@ public class Patient {
     private String name;
     private String info;
 
-    @OneToMany
-    private List<Appointment> appointments;
+//    @OneToMany
+//    private List<Appointment> appointments= new ArrayList<Appointment>();
 
 }

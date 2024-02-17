@@ -7,8 +7,8 @@ public class Payment {
     private Double amount;
     private Boolean successful;
 
-    @OneToOne
-    private Appointment appointment;
+//    @OneToOne
+   // private Appointment appointment;
 
 
 }

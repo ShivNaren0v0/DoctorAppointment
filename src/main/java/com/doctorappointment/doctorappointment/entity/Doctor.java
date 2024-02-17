@@ -16,7 +16,9 @@ public class Doctor {
 
     private LocalTime to;
 
-    @OneToMany
-    private List<Appointment> appointmentList;
+    private Double rating;
+
+//    @OneToMany
+//    private List<Appointment> appointmentList;
 
 }
