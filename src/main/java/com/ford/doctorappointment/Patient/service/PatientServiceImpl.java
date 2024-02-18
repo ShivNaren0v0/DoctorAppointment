@@ -1,6 +1,7 @@
 package com.ford.doctorappointment.Patient.service;
 
 
+import com.ford.doctorappointment.Appointment.entity.Appointment;
 import com.ford.doctorappointment.Patient.dao.PatientRepository;
 import com.ford.doctorappointment.Patient.entity.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,11 @@ public class PatientServiceImpl implements PatientService{
     @Override
     public Patient addPatient(Patient patient) {
         return this.patientRepository.save(patient);
+    }
+
+    @Override
+    public Patient addAppointment(Appointment appointment) {
+        return null;
     }
 
 }
