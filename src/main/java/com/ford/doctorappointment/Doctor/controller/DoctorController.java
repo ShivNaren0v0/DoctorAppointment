@@ -1,6 +1,8 @@
 package com.ford.doctorappointment.Doctor.controller;
 
 
+import com.ford.doctorappointment.Doctor.entity.Doctor;
+import com.ford.doctorappointment.Doctor.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.ford.doctorappointment.Patient.entity.Patient;
 import com.ford.doctorappointment.Patient.service.PatientService;
@@ -12,11 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DoctorController {
     @Autowired
-    private PatientService patientService;
+    private DoctorService doctorService;
 
 
-    @PostMapping("doctor")
-    public Patient createAccount(@RequestBody Patient patient) {
-        return this.patientService.addPatient(patient);
-    }
 }

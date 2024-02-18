@@ -17,7 +17,8 @@ public class Patient {
     private String gender;
     private String name;
     private String info;
-
+    @OneToMany
+    private List<Appointment> appointments= new ArrayList<Appointment>();
     public Patient(Integer patientId, String email, String password, Integer age, String gender, String name, String info, List<Appointment> appointments) {
         this.patientId = patientId;
         this.email = email;
@@ -97,6 +98,5 @@ public class Patient {
         this.appointments = appointments;
     }
 
-    @OneToMany
-    private List<Appointment> appointments= new ArrayList<Appointment>();
+
     }
