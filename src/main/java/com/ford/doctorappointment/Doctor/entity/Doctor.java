@@ -18,8 +18,8 @@ public class Doctor {
     private Integer docId;
     private String name;
     private String spec;
-    private LocalTime from;
-    private LocalTime to;
+//    private LocalTime from;
+//    private LocalTime to;
     private Double rating;
     @OneToMany
     private List<Appointment> appointmentList = new ArrayList<>();
@@ -28,12 +28,12 @@ public class Doctor {
     public Doctor() {
         super();
     }
-    public Doctor(Integer docId, String name, String spec, LocalTime from, LocalTime to, Double rating, List<Appointment> appointmentList) {
+    public Doctor(Integer docId, String name, String spec, Double rating, List<Appointment> appointmentList) {
         this.docId = docId;
         this.name = name;
         this.spec = spec;
-        this.from = from;
-        this.to = to;
+//        this.from = from;
+//        this.to = to;
         this.rating = rating;
         this.appointmentList = appointmentList;
     }
@@ -64,21 +64,21 @@ public class Doctor {
         this.spec = spec;
     }
 
-    public LocalTime getFrom() {
-        return from;
-    }
-
-    public void setFrom(LocalTime from) {
-        this.from = from;
-    }
-
-    public LocalTime getTo() {
-        return to;
-    }
-
-    public void setTo(LocalTime to) {
-        this.to = to;
-    }
+//    public LocalTime getFrom() {
+//        return from;
+//    }
+//
+//    public void setFrom(LocalTime from) {
+//        this.from = from;
+//    }
+//
+//    public LocalTime getTo() {
+//        return to;
+//    }
+//
+//    public void setTo(LocalTime to) {
+//        this.to = to;
+//    }
 
     public Double getRating() {
         return rating;

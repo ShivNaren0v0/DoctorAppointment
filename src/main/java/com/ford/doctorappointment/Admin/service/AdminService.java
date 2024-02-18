@@ -7,7 +7,10 @@ import com.ford.doctorappointment.Patient.entity.Patient;
 public interface AdminService {
 
     Doctor addDoctor(Doctor product);
-    Doctor removeDoctor(Doctor doctor);
+    List<Doctor> removeDoctorById(Integer doctorID);
+
+    Doctor getDocotrById(Integer doctorID);
+    List<Doctor> getallDoctors();
     Patient removePatient(Patient patient);
 
 }
