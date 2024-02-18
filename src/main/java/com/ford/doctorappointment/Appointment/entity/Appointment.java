@@ -7,26 +7,30 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
 import java.time.LocalDate;
+import java.util.Calendar;
 
 @Entity
 public class Appointment {
     @Id
     @GeneratedValue
     private Integer id;
-    private LocalDate timing;
+    private Calendar timing;
     private Boolean status;
-
-    public Appointment(Integer id, LocalDate timing, Boolean status, Payment payment) {
+    public Appointment(Integer id, Calendar timing, Boolean status, Payment payment) {
         this.id = id;
         this.timing = timing;
         this.status = status;
         this.payment = payment;
     }
+    public Appointment(Integer id, Calendar timing, Boolean status) {
+        this.id = id;
+        this.timing = timing;
+        this.status = status;
+        this.payment = new Payment();
+    }
 
     @OneToOne
     private Payment payment;
-
-
     public Appointment() {
         super();
     }
@@ -39,11 +43,11 @@ public class Appointment {
         this.id = id;
     }
 
-    public LocalDate getTiming() {
+    public Calendar getTiming() {
         return timing;
     }
 
-    public void setTiming(LocalDate timing) {
+    public void setTiming(Calendar timing) {
         this.timing = timing;
     }
 
