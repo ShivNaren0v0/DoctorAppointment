@@ -1,6 +1,7 @@
 package com.ford.doctorappointment.Patient.controller;
 
 
+import com.ford.doctorappointment.Appointment.entity.Appointment;
 import com.ford.doctorappointment.Patient.entity.Patient;
 import com.ford.doctorappointment.Patient.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +19,8 @@ public class PatientController {
     public Patient createAccount(@RequestBody Patient patient) {
         return this.patientService.addPatient(patient);
     }
+
+    @PostMapping("patient/request_appointment")
+    public Patient createAppointment(@RequestBody Appointment appointment){return null;}
 
 }
