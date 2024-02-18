@@ -53,25 +53,26 @@ public class PatientServiceImpl implements PatientService{
         for(Doctor d: doctorList){
             if (Objects.equals(d.getSpec(), spec)) {
                 specDoctors.add(d);
-            };
+            }
         }
         return specDoctors;
     }
 
     @Override
     public Patient addAppointmentToPatient(Integer patientId, Appointment appointment) {
-        Appointment newAppointment = new Appointment(appointment.getId(),appointment.getTiming(),appointment.getStatus(),new Payment());
         Optional<Patient> PatientOpt = this.patientRepository.findById(patientId);
 
         Patient patient = PatientOpt.get();
         if(patient.getAppointments()==null){
             patient.setAppointments(new ArrayList<Appointment>());
         }
+        List<Appointment> appointments = patient.getAppointments();
+        appointments.add(appointment);
+        patient.setAppointments(appointments);
 
-        patient.getAppointments().add(appointment);
-        this.appointmentRepository.save(newAppointment);
-        patient.getAppointments().add(appointment);
+        this.appointmentRepository.save(appointment);
         return this.patientRepository.save(patient);
+
     }
 
     @Override

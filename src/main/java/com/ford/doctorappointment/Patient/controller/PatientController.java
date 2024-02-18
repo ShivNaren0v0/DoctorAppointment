@@ -28,8 +28,6 @@ public class PatientController {
     //code not working from here
     @PostMapping("patient/request_appointment")
     public Patient createAppointmentRequest(@RequestBody AppointmentRequestDTO appointmentRequestDTO){
-        System.out.println(appointmentRequestDTO.getPatientId());
-        System.out.println(appointmentRequestDTO.getAppointment());
         return this.patientService.addAppointmentToPatient(appointmentRequestDTO.getPatientId(),appointmentRequestDTO.getAppointment());}
     @GetMapping("patient/get_appointments")
     public List<Appointment> getAppointments(@RequestBody Integer patientId){return this.patientService.getAllAppointmentOfPatient(patientId);}
