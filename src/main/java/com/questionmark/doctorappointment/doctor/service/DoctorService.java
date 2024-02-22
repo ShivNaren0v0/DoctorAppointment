@@ -6,7 +6,7 @@ import com.questionmark.doctorappointment.appointment.entity.Appointment;
 public interface DoctorService {
     //Doctor DoctorLogin(String userName,String userPassword);
 
-    public Appointment cancelAppointment(Appointment appointment);
-    public Appointment confirmAppointment(Appointment appointment);
+    public Integer cancelAppointment(Integer appointmentId);
+    public Appointment confirmAppointment(Integer appointmentId);
 
 }
