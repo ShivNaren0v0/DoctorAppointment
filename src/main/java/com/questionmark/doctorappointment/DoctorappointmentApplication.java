@@ -1,4 +1,4 @@
-package com.ford.doctorappointment;
+package com.questionmark.doctorappointment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
