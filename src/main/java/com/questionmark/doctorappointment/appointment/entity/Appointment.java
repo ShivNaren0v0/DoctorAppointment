@@ -1,38 +1,42 @@
 package com.questionmark.doctorappointment.appointment.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.questionmark.doctorappointment.doctor.entity.Doctor;
+import com.questionmark.doctorappointment.patient.entity.Patient;
 import com.questionmark.doctorappointment.payment.entity.Payment;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 public class Appointment {
     @Id
     @GeneratedValue
     private Integer id;
-    private Calendar timing;
-    private Boolean status;
-    public Appointment(Integer id, Calendar timing, Boolean status, Payment payment) {
-        this.id = id;
-        this.timing = timing;
-        this.status = status;
-        this.payment = payment;
-    }
-    public Appointment(Integer id, Calendar timing, Boolean status) {
-        this.id = id;
-        this.timing = timing;
-        this.status = status;
-        this.payment = new Payment();
-    }
 
+    private Integer patientId;
+
+    private Integer doctorId;
+    private LocalDate date;
+    @JsonFormat(pattern = "HH:mm:ss")
+    private LocalTime timing;
     @OneToOne
     private Payment payment;
+    private Boolean status;
+
     public Appointment() {
-        super();
+    }
+
+    public Appointment(Integer id, Integer patientId, Integer doctorId, LocalDate date, LocalTime timing, Payment payment, Boolean status) {
+        this.id = id;
+        this.patientId = patientId;
+        this.doctorId = doctorId;
+        this.date = date;
+        this.timing = timing;
+        this.payment = payment;
+        this.status = status;
     }
 
     public Integer getId() {
@@ -43,20 +47,36 @@ public class Appointment {
         this.id = id;
     }
 
-    public Calendar getTiming() {
+    public Integer getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Integer patientId) {
+        this.patientId = patientId;
+    }
+
+    public Integer getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Integer doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public LocalTime getTiming() {
         return timing;
     }
 
-    public void setTiming(Calendar timing) {
+    public void setTiming(LocalTime timing) {
         this.timing = timing;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
     }
 
     public Payment getPayment() {
@@ -65,5 +85,13 @@ public class Appointment {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 }

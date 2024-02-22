@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.questionmark.doctorappointment.appointment.entity.Appointment;
 
-import java.util.Optional;
-
 @Service
 public class DoctorServiceImpl implements DoctorService{
     @Autowired
@@ -17,24 +15,13 @@ public class DoctorServiceImpl implements DoctorService{
     private AppointmentRepository appointmentRepository;
 
     @Override
-    public Integer cancelAppointment(Integer appointmentId) {
-
-        this.appointmentRepository.deleteById(appointmentId);
-        return appointmentId;
+    public Appointment cancelAppointment(Appointment appointment) {
+        return null;
     }
 
     @Override
-    public Appointment confirmAppointment(Integer appointmentId) {
-       Optional<Appointment> appointmentOptional =  this.appointmentRepository.findById(appointmentId);
-       if (appointmentOptional.get() == null){
-           System.out.println("Appointment is not available");//Handle exception later
-           return null;
-       }
-
-       Appointment appointment = appointmentOptional.get();
-       appointment.setStatus(true);
-       this.appointmentRepository.save(appointment);
-       return appointment;
+    public Appointment confirmAppointment(Appointment appointment) {
+        return null;
     }
 
 
