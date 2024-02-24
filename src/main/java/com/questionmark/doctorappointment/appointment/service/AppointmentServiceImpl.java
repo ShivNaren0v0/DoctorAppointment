@@ -51,7 +51,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         Optional<Appointment> appointmentOpt=this.appointmentRepository.findById(id);
         if(appointmentOpt.isEmpty())
             throw new AppointmentExceptions("Appointment doesn't exists:"+id);
-        return this.appointmentRepository.findById(id).get();
+        return appointmentOpt.get();
     }
 
     @Override

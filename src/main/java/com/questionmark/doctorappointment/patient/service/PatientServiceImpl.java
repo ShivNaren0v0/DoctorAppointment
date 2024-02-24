@@ -85,6 +85,19 @@ public class PatientServiceImpl implements PatientService{
     }
 
     @Override
+    public String getStatusofAppointment(Integer patientId, Integer appointmentId){
+        Optional<Appointment> appointmentOptional = this.appointmentRepository.findById(appointmentId);
+        if (appointmentOptional.isEmpty()){
+            return("Appointment not found / Appointment cancelled by doctor");
+        }
+
+        if(appointmentOptional.get().getStatus()!=null)
+            return("Appointment got accepted");
+        else
+            return("Appointment in process");
+    }
+
+    @Override
     public List<Appointment> getAllAppointmentOfPatient(Integer patientId) {
         Optional<Patient> optionalPatient = this.patientRepository.findById(patientId);
         return optionalPatient.get().getAppointments();

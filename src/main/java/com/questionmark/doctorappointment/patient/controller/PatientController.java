@@ -34,8 +34,12 @@ public class PatientController {
     public List<Doctor> getDoctorsBySpec(@PathVariable String spec){return this.patientService.getDoctorsBySpec(spec);}
 
     @PostMapping("patient/perform_payment/{id}")
-    public Payment performPayment(@RequestBody String method, @PathVariable Integer appointmentId) throws PatientExceptions {
-        return this.patientService.performPaymentForAppointment(method,appointmentId);
+    public Payment performPayment(@RequestBody String method, @PathVariable Integer id) throws PatientExceptions {
+        return this.patientService.performPaymentForAppointment(method,id);
+    }
+    @PostMapping("patient/AppoinmentStaus/{id}")
+    public String getAppointmentStatus(@RequestBody Integer appointmentId, @PathVariable Integer id) {
+        return this.patientService.getStatusofAppointment(id,appointmentId);
     }
 
 }
