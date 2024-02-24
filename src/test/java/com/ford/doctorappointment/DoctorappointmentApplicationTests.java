@@ -1,4 +1,4 @@
-package com.doctorappointment.doctorappointment;
+package com.ford.doctorappointment;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
