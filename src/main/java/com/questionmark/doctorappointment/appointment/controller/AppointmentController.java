@@ -16,7 +16,7 @@ public class AppointmentController {
     public AppointmentService appointmentService;
 
     @PostMapping("appointment")
-    public Appointment createAppointment(@RequestBody Appointment newAppointment)
+    public Appointment createAppointment(@RequestBody Appointment newAppointment) throws AppointmentExceptions
     {
         return this.appointmentService.createAppointment(newAppointment);
     }
@@ -34,6 +34,7 @@ public class AppointmentController {
     public List<Appointment> getAllAppointments() throws AppointmentExceptions {
         return this.appointmentService.getAllAppointments();
     }
+
     @PutMapping("appointment/changeDate/{id}")
     public Appointment changeAppointmentByDate(@PathVariable Integer id, @RequestBody Appointment newDate) throws AppointmentExceptions
     {

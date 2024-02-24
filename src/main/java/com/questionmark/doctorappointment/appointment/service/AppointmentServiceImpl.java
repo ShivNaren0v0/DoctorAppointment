@@ -3,6 +3,10 @@ package com.questionmark.doctorappointment.appointment.service;
 import com.questionmark.doctorappointment.appointment.dao.AppointmentRepository;
 import com.questionmark.doctorappointment.appointment.entity.Appointment;
 import com.questionmark.doctorappointment.appointment.exceptions.AppointmentExceptions;
+import com.questionmark.doctorappointment.doctor.dao.DoctorRepository;
+import com.questionmark.doctorappointment.doctor.entity.Doctor;
+import com.questionmark.doctorappointment.patient.dao.PatientRepository;
+import com.questionmark.doctorappointment.patient.entity.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -10,14 +14,36 @@ import java.util.Optional;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
-
+    @Autowired
+    private PatientRepository patientRepository;
+    @Autowired
+    private DoctorRepository doctorRepository;
     @Autowired
     private AppointmentRepository appointmentRepository;
 
     @Override
-    public Appointment createAppointment(Appointment newAppointment) {
+    public Appointment createAppointment(Appointment newAppointment) throws AppointmentExceptions {
+        Optional<Doctor> doctorOptional = this.doctorRepository.findById(newAppointment.getDoctorId());
+        if(doctorOptional.isEmpty()){
+            throw new AppointmentExceptions("Doctor with ID does not exist");
+        }
+        List<Appointment> temp= doctorOptional.get().getAppointmentList();
+        temp.add(newAppointment);
+        doctorOptional.get().setAppointmentList(temp);
 
-        return this.appointmentRepository.save(newAppointment);
+        Optional<Patient> patientOptional = this.patientRepository.findById(newAppointment.getPatientId());
+        if(patientOptional.isEmpty()){
+            throw new AppointmentExceptions("Patient with ID does not exist");
+        }
+
+        List<Appointment> temp2 = patientOptional.get().getAppointments();
+        temp2.add(newAppointment);
+        doctorOptional.get().setAppointmentList(temp);
+
+        this.appointmentRepository.save(newAppointment);
+        this.doctorRepository.save(doctorOptional.get());
+        this.patientRepository.save(patientOptional.get());
+        return newAppointment;
     }
 
     @Override

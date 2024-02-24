@@ -15,10 +15,11 @@ public class Appointment {
     @Id
     @GeneratedValue
     private Integer id;
-
     private Integer patientId;
 
+
     private Integer doctorId;
+    private String description;
     private LocalDate date;
     @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime timing;
@@ -29,14 +30,15 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(Integer id, Integer patientId, Integer doctorId, LocalDate date, LocalTime timing, Payment payment, Boolean status) {
+    public Appointment(Integer id, Integer patientId, Integer doctorId, LocalDate date, LocalTime timing, String description, Boolean status) {
         this.id = id;
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.date = date;
         this.timing = timing;
-        this.payment = payment;
+        this.payment = null;
         this.status = status;
+        this.description = description;
     }
 
     public Integer getId() {
@@ -93,5 +95,13 @@ public class Appointment {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -16,17 +16,16 @@ public class Patient {
     private Integer age;
     private String gender;
     private String name;
-    private String info;
+
     @OneToMany
     private List<Appointment> appointments= new ArrayList<Appointment>();
-    public Patient(Integer patientId, String email, String password, Integer age, String gender, String name, String info, List<Appointment> appointments) {
+    public Patient(Integer patientId, String email, String password, Integer age, String gender, String name, List<Appointment> appointments) {
         this.patientId = patientId;
         this.email = email;
         this.password = password;
         this.age = age;
         this.gender = gender;
         this.name = name;
-        this.info = info;
         this.appointments = appointments;
     }
 
@@ -81,22 +80,11 @@ public class Patient {
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
     public List<Appointment> getAppointments() {
         return appointments;
     }
-
     public void setAppointments(List<Appointment> appointments) {
         this.appointments = appointments;
     }
-
 
     }

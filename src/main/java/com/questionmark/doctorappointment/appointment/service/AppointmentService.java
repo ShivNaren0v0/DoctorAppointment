@@ -8,7 +8,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 public interface AppointmentService {
-    Appointment createAppointment(Appointment newAppointment);
+    Appointment createAppointment(Appointment newAppointment) throws AppointmentExceptions;
 
     Appointment getAppointmentById(Integer id) throws AppointmentExceptions;
 

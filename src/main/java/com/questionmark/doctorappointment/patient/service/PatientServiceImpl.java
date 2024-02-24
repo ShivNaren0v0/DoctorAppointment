@@ -7,10 +7,13 @@ import com.questionmark.doctorappointment.doctor.dao.DoctorRepository;
 import com.questionmark.doctorappointment.doctor.entity.Doctor;
 import com.questionmark.doctorappointment.patient.dao.PatientRepository;
 import com.questionmark.doctorappointment.patient.entity.Patient;
+import com.questionmark.doctorappointment.patient.exceptions.PatientExceptions;
+import com.questionmark.doctorappointment.payment.dao.PaymentRepository;
 import com.questionmark.doctorappointment.payment.entity.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -27,6 +30,8 @@ public class PatientServiceImpl implements PatientService{
 
     @Autowired
     private DoctorRepository doctorRepository;
+    @Autowired
+    private PaymentRepository paymentRepository;
 
     @Override
     public Patient addPatient(Patient patient) {
@@ -35,14 +40,35 @@ public class PatientServiceImpl implements PatientService{
     }
 
     @Override
-    public Patient getPatientById(Integer patientId) {
+    public Patient getPatientById(Integer patientId) throws PatientExceptions {
         Optional<Patient> optionalPatient = this.patientRepository.findById(patientId);
-
+        if (optionalPatient.isEmpty()){
+            throw new PatientExceptions("Patient not found");
+        }
         return optionalPatient.get();
     }
 
     public List<Patient> getAllPatient(){
+
         return this.patientRepository.findAll();
+    }
+
+    @Override
+    public Payment performPaymentForAppointment(String method, Integer appointmentId) throws PatientExceptions {
+        Optional<Appointment> appointmentOptional = this.appointmentRepository.findById(appointmentId);
+        if (appointmentOptional.isEmpty()){
+            throw new PatientExceptions("Appointment not found");
+        }
+        Appointment appointment = appointmentOptional.get();
+        Payment payment = appointment.getPayment();
+        payment.setSuccessful(true);
+        payment.setCancelled(false);
+        payment.setPaymentMethod(method);
+        payment.setPaymentDate(LocalDate.now());
+        appointment.setPayment(payment);
+
+        this.appointmentRepository.save(appointment);
+        return this.paymentRepository.save(payment);
     }
 
     @Override
@@ -56,23 +82,6 @@ public class PatientServiceImpl implements PatientService{
             }
         }
         return specDoctors;
-    }
-
-    @Override
-    public Patient addAppointmentToPatient(Integer patientId, Appointment appointment) {
-        Optional<Patient> PatientOpt = this.patientRepository.findById(patientId);
-
-        Patient patient = PatientOpt.get();
-        if(patient.getAppointments()==null){
-            patient.setAppointments(new ArrayList<Appointment>());
-        }
-        List<Appointment> appointments = patient.getAppointments();
-        appointments.add(appointment);
-        patient.setAppointments(appointments);
-
-        this.appointmentRepository.save(appointment);
-        return this.patientRepository.save(patient);
-
     }
 
     @Override
