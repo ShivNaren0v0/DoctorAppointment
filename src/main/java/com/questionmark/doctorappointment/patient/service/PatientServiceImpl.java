@@ -102,9 +102,4 @@ public class PatientServiceImpl implements PatientService{
         Optional<Patient> optionalPatient = this.patientRepository.findById(patientId);
         return optionalPatient.get().getAppointments();
     }
-
-
-
-
-
 }
