@@ -7,8 +7,8 @@ import com.questionmark.doctorappointment.patient.exceptions.PatientExceptions;
 import com.questionmark.doctorappointment.payment.entity.Payment;
 import java.util.List;
 
-public interface PatientService {
-    Patient addPatient(Patient patient);
+public interface PatientService{
+    Patient addPatient(Patient patient) throws PatientExceptions;
 
     Patient getPatientById(Integer patientId) throws PatientExceptions;
     List<Appointment> getAllAppointmentOfPatient(Integer patientId);

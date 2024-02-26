@@ -22,7 +22,7 @@ public class PatientController {
     public List<Patient> getAllPatients(){return this.patientService.getAllPatient();}
 
     @PostMapping("patient/create_account")
-    public Patient createAccount(@RequestBody Patient patient) {
+    public Patient createAccount(@RequestBody Patient patient) throws PatientExceptions {
         return this.patientService.addPatient(patient);
     }
     //code not working from here

@@ -34,7 +34,10 @@ public class PatientServiceImpl implements PatientService{
     private PaymentRepository paymentRepository;
 
     @Override
-    public Patient addPatient(Patient patient) {
+    public Patient addPatient(Patient patient) throws PatientExceptions{
+        if (patient == null){
+            throw new PatientExceptions("Patient cannot be null");
+        }
         patient.setAppointments(new ArrayList<Appointment>());
         return this.patientRepository.save(patient);
     }
