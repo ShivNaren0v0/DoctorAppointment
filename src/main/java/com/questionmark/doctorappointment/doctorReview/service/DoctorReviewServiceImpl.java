@@ -25,15 +25,32 @@ public class DoctorReviewServiceImpl implements DoctorReviewService{
 
     @Autowired
     private DoctorRepository doctorRepository;
+    @Autowired
+    private AppointmentRepository appointmentRepository;
     @Override
-    public DoctorReview createReview(DoctorReview review, int doctorId, int patientId) {
+    public DoctorReview createReview(DoctorReview doctorReview, int doctorId, int patientId,int appointment_ID) {
         Optional<Doctor> doctorOptional = this.doctorRepository.findById(doctorId);
         Optional<Patient> patientOptional = this.patientRepository.findById(patientId);
+        Optional<Appointment> appointmentOptional = this.appointmentRepository.findById(appointment_ID);
         Doctor doctor=doctorOptional.get();
         Patient patient=patientOptional.get();
-        review.setDoctor(doctor);
-        review.setPatient(patient);
+        Appointment appointment=appointmentOptional.get();
 
-        return doctorReviewRepository.save(review);
+        doctorReview.setDoctor(doctor);
+        doctorReview.setPatient(patient);
+
+        return doctorReviewRepository.save(doctorReview);
+    }
+
+    @Override
+    public DoctorReview updateReview(DoctorReview doctorReview, int doctorId, int patientId, int appointment_ID) {
+        Optional<Doctor> doctorOptional = this.doctorRepository.findById(doctorId);
+        Optional<Patient> patientOptional = this.patientRepository.findById(patientId);
+        Optional<Appointment> appointmentOptional = this.appointmentRepository.findById(appointment_ID);
+        Doctor doctor=doctorOptional.get();
+        Patient patient=patientOptional.get();
+        Appointment appointment=appointmentOptional.get();
+
+        return doctorReviewRepository.save(doctorReview);
     }
 }

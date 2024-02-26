@@ -13,8 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class DoctorReviewController {
     @Autowired
     private DoctorReviewService doctorReviewService;
-    @PostMapping("DoctorReview/{doc_id}")
-    public DoctorReview addNewReview(@RequestBody CreateDTO createDTO, @PathVariable Integer doc_id){
-        return this.doctorReviewService.createReview(createDTO.getDoctorReview(),doc_id, createDTO.getPatient_ID());
+    @PostMapping("AddDoctorReview/{appointment_ID}")
+    public DoctorReview addNewReview(@RequestBody CreateDTO createDTO, @PathVariable Integer appointment_ID){
+        return this.doctorReviewService.createReview(createDTO.getDoctorReview(), createDTO.getDoctor_ID(), createDTO.getPatient_ID(),appointment_ID);
     }
+    @PostMapping("UpdateDoctorReview/{appointment_ID}")
+    public DoctorReview updateReview(@RequestBody CreateDTO createDTO,@PathVariable Integer appointment_ID){
+        return this.doctorReviewService.updateReview(createDTO.getDoctorReview(), createDTO.getDoctor_ID(), createDTO.getPatient_ID(),appointment_ID);
+    }
+
 }
