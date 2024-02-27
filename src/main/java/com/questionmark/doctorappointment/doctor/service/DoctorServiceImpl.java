@@ -43,7 +43,7 @@ public class DoctorServiceImpl implements DoctorService{
             this.paymentRepository.save(payment);
         }
         else{
-            this.appointmentRepository.save(appointment);
+            this.appointmentRepository.delete(appointment);
         }
 
         return appointmentId;
