@@ -39,8 +39,6 @@ class PatientControllerTest {
 
     @Test
     void createAccount() throws Exception {
-
-
         Patient patient = new Patient();
         patient.setName("Thanush");
         patient.setAge(20);
@@ -49,13 +47,26 @@ class PatientControllerTest {
         patient.setPassword("a secret");
         patient.setAppointments(new ArrayList<Appointment>());
         mvc.perform(MockMvcRequestBuilders.post("/patient/create_account").content(objectMapper.writeValueAsString(patient)).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-
-
     }
 
     @Test
     void createAccountException() throws Exception{
         mvc.perform(MockMvcRequestBuilders.post("/patient/create_account").content(objectMapper.writeValueAsString(null)).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
     }
+
+    @Test
+    void getAppointments() throws Exception{
+
+        Patient patient = new Patient();
+        patient.setName("Thanush");
+        patient.setAge(20);
+        patient.setGender("batman");
+        patient.setEmail("thanush@student.tce.edu");
+        patient.setPassword("a secret");
+        patient.setAppointments(new ArrayList<Appointment>());
+        mvc.perform(MockMvcRequestBuilders.post("/patient/create_account").content(objectMapper.writeValueAsString(patient)).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
+        mvc.perform(MockMvcRequestBuilders.get("/patient/get_appointments").content("1").accept(MediaType.TEXT_PLAIN)).andExpect(status().isOk()).andExpect(content().string(equalTo("[]")));
+    }
+
 
 }

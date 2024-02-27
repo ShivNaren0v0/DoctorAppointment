@@ -39,7 +39,7 @@ public class DoctorController {
     }
 
     @PostMapping("doctor/cancel_appointment")
-    Integer cancelAppointment(@RequestBody Integer appointmentId) throws DoctorExceptions {
+    Integer cancelAppointment(@RequestBody Integer appointmentId) throws DoctorExceptions{
         return this.doctorService.cancelAppointment(appointmentId);
     }
 
@@ -48,6 +48,7 @@ public class DoctorController {
         return this.doctorService.getAllAppointmentOfDoctor(doctorId);
     }
 
+    
 
 
 }

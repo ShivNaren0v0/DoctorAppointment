@@ -24,20 +24,27 @@ public class DoctorServiceImpl implements DoctorService{
     private PaymentRepository paymentRepository;
 
     @Override
-    public Integer cancelAppointment(Integer appointmentId) throws DoctorExceptions {
+    public Integer cancelAppointment(Integer appointmentId) throws DoctorExceptions{
 
         Optional<Appointment> appointmentOptional = this.appointmentRepository.findById(appointmentId);
         if(appointmentOptional.isEmpty()){
-         throw new DoctorExceptions("Appointment ID not found. Hence it cannot be cancelled by the doctor");
+            throw new DoctorExceptions("Appointment does not exist.");
         }
+
+
 
         Appointment appointment = appointmentOptional.get();
         appointment.setStatus(false);
         Payment payment = appointment.getPayment();
-        payment.setCancelled(true);
-        payment.setSuccessful(false);
-        this.appointmentRepository.save(appointment);
-        this.paymentRepository.save(payment);
+        if (payment != null) {
+            payment.setCancelled(true);
+            payment.setSuccessful(false);
+            this.appointmentRepository.save(appointment);
+            this.paymentRepository.save(payment);
+        }
+        else{
+            this.appointmentRepository.save(appointment);
+        }
 
         return appointmentId;
     }
