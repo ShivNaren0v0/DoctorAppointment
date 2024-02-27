@@ -1,7 +1,5 @@
 package com.questionmark.doctorappointment.doctor.service;
 
-import com.questionmark.doctorappointment.appointment.exceptions.AppointmentExceptions;
-import com.questionmark.doctorappointment.doctor.entity.Doctor;
 import com.questionmark.doctorappointment.appointment.entity.Appointment;
 import com.questionmark.doctorappointment.doctor.exceptions.DoctorExceptions;
 
@@ -13,5 +11,5 @@ public interface DoctorService {
     public Integer cancelAppointment(Integer appointmentId) throws DoctorExceptions;
     public Appointment confirmAppointment (Integer appointmentId, Double amount) throws DoctorExceptions;
 
-    List<Appointment> getAllAppointmentOfDoctor(Integer doctorId);
+    List<Appointment> getAllAppointmentOfDoctor(Integer doctorId) throws DoctorExceptions;
 }

@@ -6,15 +6,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayway.jsonpath.spi.json.GsonJsonProvider;
-import com.questionmark.doctorappointment.appointment.entity.Appointment;
 import com.questionmark.doctorappointment.patient.entity.Patient;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -45,7 +42,7 @@ class PatientControllerTest {
         patient.setGender("batman");
         patient.setEmail("thanush@student.tce.edu");
         patient.setPassword("a secret");
-        patient.setAppointments(new ArrayList<Appointment>());
+        patient.setAppointments(new ArrayList<>());
         mvc.perform(MockMvcRequestBuilders.post("/patient/create_account").content(objectMapper.writeValueAsString(patient)).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 
@@ -63,9 +60,9 @@ class PatientControllerTest {
         patient.setGender("batman");
         patient.setEmail("thanush@student.tce.edu");
         patient.setPassword("a secret");
-        patient.setAppointments(new ArrayList<Appointment>());
+        patient.setAppointments(new ArrayList<>());
         mvc.perform(MockMvcRequestBuilders.post("/patient/create_account").content(objectMapper.writeValueAsString(patient)).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
-        mvc.perform(MockMvcRequestBuilders.get("/patient/get_appointments").content("1").accept(MediaType.TEXT_PLAIN)).andExpect(status().isOk()).andExpect(content().string(equalTo("[]")));
+        mvc.perform(MockMvcRequestBuilders.get("/patient/get_appointments").content("1").accept(MediaType.TEXT_PLAIN_VALUE)).andExpect(status().isOk()).andExpect(content().string(equalTo("[]")));
     }
 
 

@@ -1,7 +1,6 @@
 package com.questionmark.doctorappointment.doctor.service;
 
 import com.questionmark.doctorappointment.appointment.dao.AppointmentRepository;
-import com.questionmark.doctorappointment.appointment.exceptions.AppointmentExceptions;
 import com.questionmark.doctorappointment.doctor.dao.DoctorRepository;
 import com.questionmark.doctorappointment.doctor.entity.Doctor;
 import com.questionmark.doctorappointment.doctor.exceptions.DoctorExceptions;
@@ -16,12 +15,18 @@ import java.util.Optional;
 
 @Service
 public class DoctorServiceImpl implements DoctorService{
+    private final DoctorRepository doctorRepository;
+
+    private final AppointmentRepository appointmentRepository;
+
+    private final PaymentRepository paymentRepository;
+
     @Autowired
-    private DoctorRepository doctorRepository;
-    @Autowired
-    private AppointmentRepository appointmentRepository;
-    @Autowired
-    private PaymentRepository paymentRepository;
+    public DoctorServiceImpl(DoctorRepository doctorRepository, AppointmentRepository appointmentRepository, PaymentRepository paymentRepository){
+        this.doctorRepository = doctorRepository;
+        this.appointmentRepository = appointmentRepository;
+        this.paymentRepository = paymentRepository;
+    }
 
     @Override
     public Integer cancelAppointment(Integer appointmentId) throws DoctorExceptions{
@@ -53,7 +58,7 @@ public class DoctorServiceImpl implements DoctorService{
     @Override
     public Appointment confirmAppointment(Integer appointmentId, Double amount) throws DoctorExceptions{
         Optional<Appointment> appointmentOptional =  this.appointmentRepository.findById(appointmentId);
-        if (appointmentOptional.get() == null){
+        if (appointmentOptional.isEmpty()){
 
             throw new DoctorExceptions("Appointment is not available");
         }
@@ -70,10 +75,13 @@ public class DoctorServiceImpl implements DoctorService{
         return appointment;
     }
 
-    @Override
-    public List<Appointment> getAllAppointmentOfDoctor(Integer doctorId) {
-        Optional<Doctor> optionalDoctor = this.doctorRepository.findById(doctorId);
 
+    @Override
+    public List<Appointment> getAllAppointmentOfDoctor(Integer doctorId) throws DoctorExceptions {
+        Optional<Doctor> optionalDoctor = this.doctorRepository.findById(doctorId);
+        if(optionalDoctor.isEmpty()){
+            throw new DoctorExceptions("Doctor not found. Please try again");
+        }
         return optionalDoctor.get().getAppointmentList();
     }
 

@@ -44,7 +44,7 @@ public class DoctorController {
     }
 
     @GetMapping("doctor/get_appointment")
-    List<Appointment> getAppointments(@RequestBody Integer doctorId){
+    List<Appointment> getAppointments(@RequestBody Integer doctorId) throws DoctorExceptions{
         return this.doctorService.getAllAppointmentOfDoctor(doctorId);
     }
 
