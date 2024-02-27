@@ -74,9 +74,11 @@ class PatientControllerTest {
 
     @Order(5)
     @Test
-    void performPaymentTest() throws Exception{
-        mvc.perform(MockMvcRequestBuilders.post("patient/perform_payment/"))
+    void performPaymentExceptionTest() throws Exception{
+        mvc.perform(MockMvcRequestBuilders.post("/patient/perform_payment/{id}",1).content(objectMapper.writeValueAsString("cash")).contentType(MediaType.TEXT_PLAIN).accept(MediaType.TEXT_PLAIN)).andExpect(status().isBadRequest());
     }
+
+
 
 
 }

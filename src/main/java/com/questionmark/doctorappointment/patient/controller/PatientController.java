@@ -39,8 +39,8 @@ public class PatientController {
     public Payment performPayment(@RequestBody String method, @PathVariable Integer id) throws PatientExceptions {
         return this.patientService.performPaymentForAppointment(method,id);
     }
-    @PostMapping("patient/AppoinmentStaus/{id}")
-    public String getAppointmentStatus(@RequestBody Integer appointmentId, @PathVariable Integer id) throws PatientExceptions{
+    @PostMapping("patient/AppointmentStatus/{id}")
+    public String getAppointmentStatus(@RequestBody Integer appointmentId, @PathVariable Integer id){
         return this.patientService.getStatusofAppointment(id,appointmentId);
     }
 

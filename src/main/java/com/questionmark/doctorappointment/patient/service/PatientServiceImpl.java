@@ -90,7 +90,7 @@ public class PatientServiceImpl implements PatientService{
     }
 
     @Override
-    public String getStatusofAppointment(Integer patientId, Integer appointmentId) throws PatientExceptions{
+    public String getStatusofAppointment(Integer patientId, Integer appointmentId){
         Optional<Appointment> appointmentOptional = this.appointmentRepository.findById(appointmentId);
         if (appointmentOptional.isEmpty()){
             return("Appointment not found / Appointment cancelled by doctor");
