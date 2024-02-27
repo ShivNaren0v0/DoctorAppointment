@@ -18,7 +18,7 @@ public class Patient {
     private String name;
 
     @OneToMany
-    private List<Appointment> appointments= new ArrayList<Appointment>();
+    private List<Appointment> appointments= new ArrayList<>();
     public Patient(Integer patientId, String email, String password, Integer age, String gender, String name, List<Appointment> appointments) {
         this.patientId = patientId;
         this.email = email;

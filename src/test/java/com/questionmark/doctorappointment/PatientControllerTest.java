@@ -78,7 +78,10 @@ class PatientControllerTest {
         mvc.perform(MockMvcRequestBuilders.post("/patient/perform_payment/{id}",1).content(objectMapper.writeValueAsString("cash")).contentType(MediaType.TEXT_PLAIN).accept(MediaType.TEXT_PLAIN)).andExpect(status().isBadRequest());
     }
 
-
-
+    @Order(6)
+    @Test
+    void testGetAppointmentStatus() throws Exception{
+        mvc.perform(MockMvcRequestBuilders.post("/patient/AppointmentStatus/{id}",10).content(objectMapper.writeValueAsString(1)).contentType(MediaType.APPLICATION_JSON_VALUE).accept(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk()).andExpect(content().string(equalTo("Appointment not found / Appointment cancelled by doctor")));
+    }
 
 }

@@ -44,4 +44,6 @@ public class PatientController {
         return this.patientService.getStatusofAppointment(id,appointmentId);
     }
 
+
+
 }
