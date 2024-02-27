@@ -38,7 +38,7 @@ public class PatientServiceImpl implements PatientService{
         if (patient == null){
             throw new PatientExceptions("Patient cannot be null");
         }
-        patient.setAppointments(new ArrayList<Appointment>());
+        patient.setAppointments(new ArrayList<>());
         return this.patientRepository.save(patient);
     }
 
@@ -101,8 +101,11 @@ public class PatientServiceImpl implements PatientService{
     }
 
     @Override
-    public List<Appointment> getAllAppointmentOfPatient(Integer patientId) {
+    public List<Appointment> getAllAppointmentOfPatient(Integer patientId) throws PatientExceptions{
         Optional<Patient> optionalPatient = this.patientRepository.findById(patientId);
+        if (optionalPatient.isEmpty()){
+            throw new PatientExceptions("Patient is not available");
+        }
         return optionalPatient.get().getAppointments();
     }
 }

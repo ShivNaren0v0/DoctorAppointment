@@ -11,7 +11,7 @@ public interface PatientService{
     Patient addPatient(Patient patient) throws PatientExceptions;
 
     Patient getPatientById(Integer patientId) throws PatientExceptions;
-    List<Appointment> getAllAppointmentOfPatient(Integer patientId);
+    List<Appointment> getAllAppointmentOfPatient(Integer patientId) throws PatientExceptions;
     List<Patient> getAllPatient();
     Payment performPaymentForAppointment(String method,Integer appointmentId) throws PatientExceptions;
     List<Doctor> getDoctorsBySpec(String spec);

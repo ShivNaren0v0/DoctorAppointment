@@ -2,7 +2,6 @@ package com.questionmark.doctorappointment.patient.controller;
 
 
 import com.questionmark.doctorappointment.appointment.entity.Appointment;
-import com.questionmark.doctorappointment.appointment.service.AppointmentService;
 import com.questionmark.doctorappointment.doctor.entity.Doctor;
 import com.questionmark.doctorappointment.patient.entity.Patient;
 import com.questionmark.doctorappointment.patient.exceptions.PatientExceptions;
@@ -15,9 +14,13 @@ import java.util.List;
 
 @RestController
 public class PatientController {
+    private final PatientService patientService;
+
     @Autowired
-    private PatientService patientService;
-    @Autowired private AppointmentService appointmentService;
+    public PatientController(PatientService patientService){
+        this.patientService = patientService;
+    }
+
     @GetMapping("patient/get_all_patient")
     public List<Patient> getAllPatients(){return this.patientService.getAllPatient();}
 
@@ -28,7 +31,7 @@ public class PatientController {
     //code not working from here
 
     @GetMapping("patient/get_appointments")
-    public List<Appointment> getAppointments(@RequestBody Integer patientId){return this.patientService.getAllAppointmentOfPatient(patientId);}
+    public List<Appointment> getAppointments(@RequestBody Integer patientId) throws PatientExceptions {return this.patientService.getAllAppointmentOfPatient(patientId);}
 
     @GetMapping("patient/get_doctors/{spec}")
     public List<Doctor> getDoctorsBySpec(@PathVariable String spec){return this.patientService.getDoctorsBySpec(spec);}

@@ -62,7 +62,7 @@ class PatientControllerTest {
         patient.setPassword("a secret");
         patient.setAppointments(new ArrayList<>());
         mvc.perform(MockMvcRequestBuilders.post("/patient/create_account").content(objectMapper.writeValueAsString(patient)).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
-        mvc.perform(MockMvcRequestBuilders.get("/patient/get_appointments").content("1").accept(MediaType.TEXT_PLAIN_VALUE)).andExpect(status().isOk()).andExpect(content().string(equalTo("[]")));
+        mvc.perform(MockMvcRequestBuilders.get("/patient/get_appointments").accept(MediaType.TEXT_PLAIN_VALUE)).andExpect(status().isOk()).andExpect(content().string(equalTo("[]")));
     }
 
 
