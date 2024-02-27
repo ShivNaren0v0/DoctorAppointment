@@ -22,16 +22,18 @@ import java.util.Optional;
 @Service
 public class PatientServiceImpl implements PatientService{
 
-    @Autowired
-    private PatientRepository patientRepository;
+    private final PatientRepository patientRepository;
+    private final AppointmentRepository appointmentRepository;
+    private final DoctorRepository doctorRepository;
+    private final PaymentRepository paymentRepository;
 
     @Autowired
-    private AppointmentRepository appointmentRepository;
-
-    @Autowired
-    private DoctorRepository doctorRepository;
-    @Autowired
-    private PaymentRepository paymentRepository;
+    public PatientServiceImpl(PatientRepository patientRepository, AppointmentRepository appointmentRepository, DoctorRepository doctorRepository, PaymentRepository paymentRepository){
+        this.patientRepository=patientRepository;
+        this.appointmentRepository=appointmentRepository;
+        this.doctorRepository=doctorRepository;
+        this.paymentRepository=paymentRepository;
+    }
 
     @Override
     public Patient addPatient(Patient patient) throws PatientExceptions{
@@ -88,7 +90,7 @@ public class PatientServiceImpl implements PatientService{
     }
 
     @Override
-    public String getStatusofAppointment(Integer patientId, Integer appointmentId){
+    public String getStatusofAppointment(Integer patientId, Integer appointmentId) throws PatientExceptions{
         Optional<Appointment> appointmentOptional = this.appointmentRepository.findById(appointmentId);
         if (appointmentOptional.isEmpty()){
             return("Appointment not found / Appointment cancelled by doctor");
@@ -106,6 +108,7 @@ public class PatientServiceImpl implements PatientService{
         if (optionalPatient.isEmpty()){
             throw new PatientExceptions("Patient is not available");
         }
-        return optionalPatient.get().getAppointments();
+        Patient patient = optionalPatient.get();
+        return patient.getAppointments();
     }
 }

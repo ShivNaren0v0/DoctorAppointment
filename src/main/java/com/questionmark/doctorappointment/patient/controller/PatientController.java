@@ -28,10 +28,9 @@ public class PatientController {
     public Patient createAccount(@RequestBody Patient patient) throws PatientExceptions {
         return this.patientService.addPatient(patient);
     }
-    //code not working from here
 
-    @GetMapping("patient/get_appointments")
-    public List<Appointment> getAppointments(@RequestBody Integer patientId) throws PatientExceptions {return this.patientService.getAllAppointmentOfPatient(patientId);}
+    @GetMapping("patient/get_appointments/{patientId}")
+    public List<Appointment> getAppointments(@PathVariable Integer patientId) throws PatientExceptions {return this.patientService.getAllAppointmentOfPatient(patientId);}
 
     @GetMapping("patient/get_doctors/{spec}")
     public List<Doctor> getDoctorsBySpec(@PathVariable String spec){return this.patientService.getDoctorsBySpec(spec);}
@@ -41,7 +40,7 @@ public class PatientController {
         return this.patientService.performPaymentForAppointment(method,id);
     }
     @PostMapping("patient/AppoinmentStaus/{id}")
-    public String getAppointmentStatus(@RequestBody Integer appointmentId, @PathVariable Integer id) {
+    public String getAppointmentStatus(@RequestBody Integer appointmentId, @PathVariable Integer id) throws PatientExceptions{
         return this.patientService.getStatusofAppointment(id,appointmentId);
     }
 
