@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.questionmark.doctorappointment.patient.dto.LoginDTO;
 import com.questionmark.doctorappointment.patient.entity.Patient;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -82,6 +83,31 @@ class PatientControllerTest {
     @Test
     void testGetAppointmentStatus() throws Exception{
         mvc.perform(MockMvcRequestBuilders.post("/patient/AppointmentStatus/{id}",10).content(objectMapper.writeValueAsString(1)).contentType(MediaType.APPLICATION_JSON_VALUE).accept(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk()).andExpect(content().string(equalTo("Appointment not found / Appointment cancelled by doctor")));
+    }
+
+
+    @Order(7)
+    @Test
+    void loginTest() throws Exception {
+
+        Patient patient = new Patient();
+        patient.setName("Thanush");
+        patient.setAge(20);
+        patient.setGender("batman");
+        patient.setEmail("thanush@student.tce.edu");
+        patient.setPassword("a secret");
+        patient.setAppointments(new ArrayList<>());
+        LoginDTO loginDTO = new LoginDTO(patient.getEmail(), patient.getPassword());
+        mvc.perform(MockMvcRequestBuilders.post("/patient/create_account").content(objectMapper.writeValueAsString(patient)).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
+        mvc.perform(MockMvcRequestBuilders.post("/patient/login").content(objectMapper.writeValueAsString(loginDTO)).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().json("{\n" +
+                "  \"patientId\": 1,\n" +
+                "  \"email\": \"thanush@student.tce.edu\",\n" +
+                "  \"password\": \"a secret\",\n" +
+                "  \"age\": 20,\n" +
+                "  \"gender\": \"batman\",\n" +
+                "  \"name\": \"Thanush\",\n" +
+                "  \"appointments\": []\n" +
+                "}"));
     }
 
 }

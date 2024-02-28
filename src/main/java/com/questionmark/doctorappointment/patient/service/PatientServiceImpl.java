@@ -6,6 +6,7 @@ import com.questionmark.doctorappointment.appointment.entity.Appointment;
 import com.questionmark.doctorappointment.doctor.dao.DoctorRepository;
 import com.questionmark.doctorappointment.doctor.entity.Doctor;
 import com.questionmark.doctorappointment.patient.dao.PatientRepository;
+import com.questionmark.doctorappointment.patient.dto.LoginDTO;
 import com.questionmark.doctorappointment.patient.entity.Patient;
 import com.questionmark.doctorappointment.patient.exceptions.PatientExceptions;
 import com.questionmark.doctorappointment.payment.dao.PaymentRepository;
@@ -110,5 +111,19 @@ public class PatientServiceImpl implements PatientService{
         }
         Patient patient = optionalPatient.get();
         return patient.getAppointments();
+    }
+
+    @Override
+    public Patient login(LoginDTO loginDTO)throws PatientExceptions {
+        Optional<Patient> patientOptional = Optional.ofNullable(this.patientRepository.findByEmail(loginDTO.getEmail()));
+        if(patientOptional.isEmpty())
+            throw new PatientExceptions("Account does not exists for :"+loginDTO.getEmail());
+
+        Patient patientAccount = patientOptional.get();
+
+        if(patientAccount.getPassword().trim().equals(loginDTO.getPassword().trim()))
+            return patientAccount;
+        else
+            throw new PatientExceptions("Password does not match");
     }
 }
