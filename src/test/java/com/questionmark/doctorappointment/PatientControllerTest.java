@@ -114,17 +114,17 @@ class PatientControllerTest {
     @Test
     void loginTestWrongPassword() throws Exception {
 
-        Patient patient = new Patient();
-        patient.setName("Thanush");
-        patient.setAge(20);
-        patient.setGender("batman");
-        patient.setEmail("thanush@student.tce.edu");
-        patient.setPassword("a secret");
-        patient.setAppointments(new ArrayList<>());
-        LoginDTO loginDTO = new LoginDTO(patient.getEmail(), "wrong password");
-        mvc.perform(MockMvcRequestBuilders.post("/patient/create_account").content(objectMapper.writeValueAsString(patient)).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
+
+        LoginDTO loginDTO = new LoginDTO("thanush@student.tce.edu", "wrong password");
         mvc.perform(MockMvcRequestBuilders.post("/patient/login").content(objectMapper.writeValueAsString(loginDTO)).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 
     }
 
+    @Order(9)
+    @Test
+    void testLoginNotFoundException() throws Exception {
+        LoginDTO loginDTO = new LoginDTO("wrong@email.com","some password");
+        mvc.perform(MockMvcRequestBuilders.post("/patient/login").content(objectMapper.writeValueAsString(loginDTO)).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+    }
+    
 }
