@@ -30,6 +30,7 @@ class PatientControllerTest {
     @Autowired
     private MockMvc mvc;
 
+
     @Order(1)
     @Test
     void getPatients() throws Exception {
@@ -132,4 +133,5 @@ class PatientControllerTest {
         mvc.perform(MockMvcRequestBuilders.post("/patient/login").content(objectMapper.writeValueAsString(loginDTO)).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
     }
 
+    
 }
