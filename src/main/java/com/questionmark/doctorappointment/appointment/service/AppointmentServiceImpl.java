@@ -9,6 +9,8 @@ import com.questionmark.doctorappointment.patient.dao.PatientRepository;
 import com.questionmark.doctorappointment.patient.entity.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +24,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     private AppointmentRepository appointmentRepository;
 
     @Override
+    @Transactional
     public Appointment createAppointment(Appointment newAppointment) throws AppointmentExceptions {
         Optional<Doctor> doctorOptional = this.doctorRepository.findById(newAppointment.getDoctorId());
         if(doctorOptional.isEmpty()){

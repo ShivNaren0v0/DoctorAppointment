@@ -1,9 +1,6 @@
 package com.questionmark.doctorappointment.doctor.entity;
 import com.questionmark.doctorappointment.appointment.entity.Appointment;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -21,8 +18,10 @@ public class Doctor {
 //    private LocalTime from;
 //    private LocalTime to;
     private Double rating;
+
     @OneToMany
-    private List<Appointment> appointmentList = new ArrayList<>();
+    private List<Appointment> appointmentList= new ArrayList<>();
+
 
 
     public Doctor() {

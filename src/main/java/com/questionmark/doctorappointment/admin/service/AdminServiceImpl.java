@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.questionmark.doctorappointment.doctor.entity.Doctor;
 import com.questionmark.doctorappointment.patient.entity.Patient;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +22,7 @@ public class AdminServiceImpl implements  AdminService{
     private AppointmentRepository appointmentRepository;
     @Override
     public Doctor addDoctor(Doctor doctor) {
-        doctor.setAppointmentList(null);
+        doctor.setAppointmentList(new ArrayList<>());
         doctor.setRating(0.0);
         return this.doctorRepository.save(doctor);
     }
