@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.questionmark.doctorappointment.doctor.entity.Doctor;
 import com.questionmark.doctorappointment.patient.dto.LoginDTO;
 import com.questionmark.doctorappointment.patient.entity.Patient;
 import org.junit.jupiter.api.Order;
@@ -42,10 +43,10 @@ class PatientControllerTest {
     @Test
     void createAccount() throws Exception {
         Patient patient = new Patient();
-        patient.setName("Thanush");
+        patient.setName("Shiv Naren");
         patient.setAge(20);
-        patient.setGender("batman");
-        patient.setEmail("thanush@student.tce.edu");
+        patient.setGender("male");
+        patient.setEmail("shivnaren@student.tce.edu");
         patient.setPassword("a secret");
         patient.setAppointments(new ArrayList<>());
         mvc.perform(MockMvcRequestBuilders.post("/patient/create_account").content(objectMapper.writeValueAsString(patient)).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
@@ -64,7 +65,7 @@ class PatientControllerTest {
         patient.setName("Thanush");
         patient.setAge(20);
         patient.setGender("batman");
-        patient.setEmail("thanush@student.tce.edu");
+        patient.setEmail("aathanush@gmail.com");
         patient.setPassword("a secret");
         patient.setAppointments(new ArrayList<>());
         mvc.perform(MockMvcRequestBuilders.post("/patient/create_account").content(objectMapper.writeValueAsString(patient)).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
@@ -114,13 +115,6 @@ class PatientControllerTest {
     @Order(8)
     @Test
     void loginTestWrongPassword() throws Exception {
-        Patient patient = new Patient();
-        patient.setName("Thanush");
-        patient.setAge(20);
-        patient.setGender("batman");
-        patient.setEmail("thanush@student.tce.edu");
-        patient.setPassword("a secret");
-        patient.setAppointments(new ArrayList<>());
         LoginDTO loginDTO = new LoginDTO("thanush@student.tce.edu", "wrong password");
         mvc.perform(MockMvcRequestBuilders.post("/patient/login").content(objectMapper.writeValueAsString(loginDTO)).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 
@@ -131,6 +125,30 @@ class PatientControllerTest {
     void testLoginNotFoundException() throws Exception {
         LoginDTO loginDTO = new LoginDTO("wrong@email.com","some password");
         mvc.perform(MockMvcRequestBuilders.post("/patient/login").content(objectMapper.writeValueAsString(loginDTO)).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+    }
+
+    @Order(10)
+    @Test
+    void testDoctorSpecEmpty() throws Exception{
+        mvc.perform(MockMvcRequestBuilders.get("/patient/get_doctors/{spec}","general")).andExpect(status().isOk()).andExpect(content().string(equalTo("[]")));
+    }
+
+    @Order(11)
+    @Test
+    void testDoctorSpecAvailable() throws Exception{
+        Doctor doctor = new Doctor();
+        doctor.setName("Shiv");
+        doctor.setAppointmentList(new ArrayList<>());
+        doctor.setSpec("general");
+        doctor.setRating(4.5);
+        mvc.perform(MockMvcRequestBuilders.post("/addDoctor").content(objectMapper.writeValueAsString(doctor)).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
+        mvc.perform(MockMvcRequestBuilders.get("/patient/get_doctors/{spec}","general")).andExpect(status().isOk()).andExpect(content().json("[{\n" +
+                "  \"docId\": 1,\n" +
+                "  \"name\": \"Shiv\",\n" +
+                "  \"spec\": \"general\",\n" +
+                "  \"rating\": 0,\n" +
+                "  \"appointmentList\": []\n" +
+                "}]"));
     }
 
     
