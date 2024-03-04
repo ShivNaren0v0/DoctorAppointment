@@ -8,7 +8,7 @@ public class DoctorReview {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "DOC_ID")
@@ -20,7 +20,7 @@ public class DoctorReview {
     private int rating; // Rating (e.g., 1 to 5 stars for now)
     private String reviewText;
 
-    public DoctorReview(Long id, Doctor doctor, Patient patient, int rating, String reviewText) {
+    public DoctorReview(int id, Doctor doctor, Patient patient, int rating, String reviewText) {
         this.id = id;
         this.doctor = doctor;
         this.patient = patient;
@@ -32,11 +32,11 @@ public class DoctorReview {
         super();
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
