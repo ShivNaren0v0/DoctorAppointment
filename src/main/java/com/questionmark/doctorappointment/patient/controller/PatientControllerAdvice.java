@@ -6,7 +6,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.questionmark.doctorappointment.patient.exceptions.PatientExceptions;
-
+/**
+ * <h3>Patient Controller Advice</h3>
+ * Used for handling the patient exceptions
+ *
+ * @author  Thanush A A
+ * @version 1.0
+ * @since   2024-02-24
+ */
 @RestControllerAdvice
 public class PatientControllerAdvice {
 

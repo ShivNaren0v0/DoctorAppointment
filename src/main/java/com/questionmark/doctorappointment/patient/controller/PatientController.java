@@ -12,7 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/**
+ * <h3>Patient Controller</h3>
+ * APIs for patient services
+ *
+ * @author  Thanush A A
+ * @version 1.0
+ * @since   2024-02-19
+ */
 @RestController
 public class PatientController {
     private final PatientService patientService;

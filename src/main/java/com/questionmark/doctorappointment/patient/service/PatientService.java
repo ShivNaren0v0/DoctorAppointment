@@ -7,7 +7,14 @@ import com.questionmark.doctorappointment.patient.entity.Patient;
 import com.questionmark.doctorappointment.patient.exceptions.PatientExceptions;
 import com.questionmark.doctorappointment.payment.entity.Payment;
 import java.util.List;
-
+/**
+ * <h3>Patient Service</h3>
+ * Interface for Patient to access services
+ *
+ * @author  Thanush A A
+ * @version 1.0
+ * @since   2024-02-16
+ */
 public interface PatientService{
     Patient addPatient(Patient patient) throws PatientExceptions;
 

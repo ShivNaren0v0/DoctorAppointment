@@ -20,6 +20,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * <h3>Patient Service Implementation</h3>
+ * Class for implementing the patient services
+ *
+ * @author  Thanush A A
+ * @version 1.0
+ * @since   2024-02-16
+ */
 @Service
 public class PatientServiceImpl implements PatientService{
 

@@ -6,6 +6,14 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <h3>Patient Entity</h3>
+ * The class implements patient entity, its attributes, and getters and setters
+ *
+ * @author  Thanush A A
+ * @version 1.0
+ * @since   2024-02-16
+ */
 @Entity
 public class Patient {
     @Id
@@ -46,6 +54,8 @@ public class Patient {
     }
 
     public void setEmail(String email) {
+
+
         this.email = email;
     }
 
