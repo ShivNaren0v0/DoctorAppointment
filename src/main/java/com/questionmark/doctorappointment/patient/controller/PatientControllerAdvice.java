@@ -17,8 +17,17 @@ import com.questionmark.doctorappointment.patient.exceptions.PatientExceptions;
 @RestControllerAdvice
 public class PatientControllerAdvice {
 
+    /**
+     * <h3>ResponseEntity<> handlePatientException(PatientExceptions e)</h3>
+     * redirecting the patient exceptions
+     * @param e Patient Exception class
+     * @author  Thanush A A
+     * @version 1.0
+     * @since   2024-02-24
+     */
+
     @ExceptionHandler(value = {PatientExceptions.class })
-    public ResponseEntity<String> handleAccountException(PatientExceptions e) {
+    public ResponseEntity<String> handlePatientException(PatientExceptions e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
