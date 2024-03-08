@@ -1,0 +1,25 @@
+<p>products works!</p>
+
+
+<div>
+    <h3>Available Products:</h3>
+    <h6 *ngIf="products.length<1">
+        No Products found! </h6>
+
+    <table *ngIf="products.length>0">
+        <tr>
+            <th>Sl no</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+        <tr *ngFor="let product of products;let i = index">
+            <td>{{product.id}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.price}}</td>
+            <td>
+                <button (click)="showDetails(product.id)">Details</button>
+            </td>
+        </tr>
+    </table>
+</div>

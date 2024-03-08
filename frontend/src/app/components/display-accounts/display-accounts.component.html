@@ -1,0 +1,38 @@
+<p>display-accounts works!</p>
+
+<div>
+    <h3>Display All Accounts: </h3>
+    <div *ngIf="message" class="alert alert-success">
+        <p> {{message}}</p>
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger">
+        <p> {{errorMessage}}</p>
+    </div>
+    
+    <h3 *ngIf="accounts.length <1"> No accounts Found.</h3>
+    <table *ngIf="accounts.length>0" class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>amount</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let account of accounts">
+               
+                <td>{{account.id}}</td>
+                <td>{{account.name}}</td>
+                <td>{{account.amount}}</td>
+                <td>{{account.email}}</td>
+                <td>{{account.password}}</td>
+                <td> <button (click)="deleteAccountById(account.id)" class="btn btn-danger">Delete</button></td>
+                <td> <button (click)="updateAccount(account)" class="btn btn-warning">Update</button></td>
+                
+                
+            </tr>
+        </tbody>
+    </table>
+</div>
