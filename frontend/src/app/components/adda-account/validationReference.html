@@ -1,0 +1,57 @@
+<p>add-product works!</p>
+
+
+<div>
+  <h3> Add new Product: </h3>
+
+  <div class="alert alert-success" *ngIf="success">
+    <strong>Success!</strong> {{success}}
+  </div>
+  <div class="alert alert-danger" *ngIf="errorMessage">
+    <strong>Danger!</strong> {{errorMessage}}
+  </div>
+
+  <form id="form1" #userForm="ngForm">
+
+    <label for="pName">Product Name:</label><br>
+    <input type="text" id="pName" name="pName" [(ngModel)]="newProduct.name"
+     #nameRef="ngModel" pattern="[A-Za-z ]{3,}" required>
+
+    <div *ngIf="nameRef.invalid && (nameRef.touched || nameRef.dirty)">
+      <p *ngIf="nameRef.errors?.['required']" class="text-danger">Name is required, cant be balnk.</p>
+      <p *ngIf="nameRef.errors?.['pattern']" class="text-danger">Only chars are allowed,Min 3 char required.</p>
+    </div>
+
+    <br>
+    <label for="pPrice">Product Price:</label><br>
+    <input type="number" id="pPrice" name="pPrice" [(ngModel)]="newProduct.price" #priceRef="ngModel" min=0 required >
+
+    <div *ngIf="priceRef.invalid && (priceRef.touched || priceRef.dirty)">
+      <p *ngIf="priceRef.errors?.['required']" class="text-danger">Price is required, cant be balnk.</p>
+      <p *ngIf="priceRef.errors?.['min']" class="text-danger">-ve value not allowed .</p>     
+    </div>
+
+    <br>
+    <label for="pPrice">Area Code:</label><br>
+    <input type="number" id="Code" name="Code" [(ngModel)]="code" #CodeRef="ngModel" pattern="[0-9]{3}" required >
+
+    <div *ngIf="CodeRef.invalid && (CodeRef.touched || CodeRef.dirty)">
+      <p *ngIf="CodeRef.errors?.['required']" class="text-danger">Code is required, cant be balnk.</p>
+      <p *ngIf="CodeRef.errors?.['pattern']" class="text-danger">Code should be of 3 digits</p>     
+    </div>
+    <br>
+
+    <br>
+    <label for="pPrice">Email</label><br>
+    <input type="number" id="Code" name="Code" [(ngModel)]="code" #CodeRef="ngModel" pattern="[0-9]{3}" required >
+
+    <div *ngIf="CodeRef.invalid && (CodeRef.touched || CodeRef.dirty)">
+      <p *ngIf="CodeRef.errors?.['required']" class="text-danger">Code is required, cant be balnk.</p>
+      <p *ngIf="CodeRef.errors?.['pattern']" class="text-danger">Code should be of 3 digits</p>     
+    </div>
+    <br>
+
+    <input type="submit" (click)="addNewProduct()" class="btn btn-success" value="Add Product" [disabled]="! userForm.valid">
+  </form>
+
+</div>

@@ -1,0 +1,215 @@
+<p>demo works!</p>
+
+
+
+<div>
+    <h3>Product search pipe demo:</h3>
+    <h6 *ngIf="products.length<1">
+        No Products found! </h6>
+
+        Search:<br>
+        <input type="text" id="search" name="search" [(ngModel)]="query">
+    <table *ngIf="products.length>0">
+        <tr>
+            <th>Sl no</th>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+        <tr *ngFor="let product of products | searchProduct : query">
+            <td>{{product.id}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.price}}</td>
+        </tr>
+    </table>
+
+</div>
+
+
+
+<div>
+    <div>
+        <h3>Product sort pipe demo:</h3>
+        <h6 *ngIf="products.length<1">
+            No Products found! </h6>
+
+        <table *ngIf="products.length>0">
+            <tr>
+                <th>Sl no</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+            <tr *ngFor="let product of products
+             | sortProduct : 'name'">
+                <td>{{product.id}}</td>
+                <td>{{product.name}}</td>
+                <td>{{product.price}}</td>
+            </tr>
+        </table>
+
+    </div>
+
+</div>
+
+<h1>Welcome to Angular App</h1>
+<div>
+    <!-- interpolation -->
+    <h3>Interpolation eg. </h3>
+    <p>{{title}}</p>
+    <p>{{fruits[0]}}</p>
+    <p>{{product.name}}</p>
+</div>
+<div>
+    <h3>property binding : [] </h3>
+
+    <img [src]="imageUrl" alt="image name">
+    <button [disabled]="isDisabled"> Click !</button>
+
+    <h3>Event binding : ()</h3>
+
+    <button (click)="clickHandler()">Log</button>
+
+    <button (click)="toggleButton()">Toggle</button>
+
+</div>
+<div>
+    <h3>Two way data binding [()]</h3>
+    <form>
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" [(ngModel)]="userName">
+
+
+        <button (click)="addName()">Add</button>
+        <button (click)="clearName()">Clear</button>
+    </form>
+</div>
+
+<div>
+    <h3>Angular directives *ngIf</h3>
+    <div *ngIf="title">{{title}} :Product description...</div>
+
+    <div *ngIf="newProduct">
+
+        {{newProduct.name}}
+        {{newProduct.price}}
+    </div>
+
+    <img *ngIf="imageUrl" [src]="imageUrl" alt="image name" height="50px" width="50px">
+
+</div>
+
+<div>
+    <h3> Angular *ngFor</h3>
+    <p *ngFor="let fruit of fruits; let i = index">
+        {{i+1}} {{fruit}}
+    </p>
+</div>
+<div class="grid-container">
+
+    <div>
+        <h3>Product details:</h3>
+        <h6 *ngIf="products.length<1">
+            No Products found! </h6>
+
+        <table *ngIf="products.length>0">
+            <tr>
+                <th>Sl no</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+            <tr *ngFor="let product of products;let i = index">
+                <td>{{i}}</td>
+                <td>{{product.name}}</td>
+                <td>{{product.price}}</td>
+            </tr>
+        </table>
+        <button (click)="enableAddProduct()">Add New Product</button>
+    </div>
+    <div *ngIf="isAddEnabled">
+        <h3>Add new Product:</h3>
+        <form>
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" [(ngModel)]="newProduct.name">
+            <br>
+            <label for="price">Price:</label><br>
+            <input type="text" id="price" name="price" [(ngModel)]="newProduct.price">
+
+            <button (click)="addProduct()">Add</button>
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <h3> *ngSwitch</h3>
+    <div [ngSwitch]="choice">
+        <p *ngSwitchCase="1">Para 1</p>
+        <p *ngSwitchCase="2">Para 2</p>
+        <p *ngSwitchCase="3">Para 3</p>
+
+        <p *ngSwitchDefault>Default Para...</p>
+    </div>
+    <label for="choice">Choice:</label>
+    <input type="number" name="choice" [(ngModel)]="choice">
+</div>
+<div>
+    <h3> angular pipes : built in pipes</h3>
+    {{"india" | uppercase}}
+    {{"FORD India" | lowercase}}
+    {{todayDate }}<br>
+    {{todayDate |date :'short'}}<br>
+    {{todayDate | date:"shortTime"}}<br>
+
+    <div>
+        <p>A: {{ a }}</p>
+        <!--output '$0.26'-->
+        <p>A: {{ a | currency }}</p>
+
+        <!--output 'CA$0.26'-->
+        <p>A: {{ a | currency: 'CAD' }}</p>
+
+        <!--output 'CAD0.26'-->
+        <p>A: {{ a | currency: 'CAD' : 'code' }}</p>
+
+        <!--output 'CA$0,001.35'-->
+        <p>B: {{ b | currency: 'CAD' : 'symbol' : '4.2-2' }}</p>
+
+        <!--output '$0,001.35'-->
+        <p>B: {{ b | currency: 'CAD' : 'symbol-narrow' : '4.2-2' }}</p>
+
+        <!--output '0 001,35 CA$'-->
+        <p>B: {{ b | currency: 'CAD' : 'symbol' : '4.2-2' }}</p>
+
+        <!--output 'CLP1' because CLP has no cents-->
+        <p>B: {{ b | currency: 'CLP' }}</p>
+        <p> {{c | currency : 'INR':'symbol':'4.2-2'}}</p>
+
+
+
+    </div>
+    {{3.6 | number: '1.0-0'}}
+    <!--will output '4'-->
+
+    {{-3.6 | number:'1.0-0'}}
+    <!--will output '-4'-->
+    <!--output '26%'-->
+    <p>A: {{ a | percent }}</p>
+
+    <!--output '0,134.950%'-->
+    <p>B: {{ b | percent: '4.3-5' }}</p>
+
+    <!--output '0 134,950 %'-->
+    <!-- <p>B: {{ b | percent: '4.3-5' : 'fr' }}</p> -->
+    <p>B: {{ b | percent: '4.3-5' }}</p>
+    <br>
+
+</div>
+<div>
+    <h3> Custom pipes</h3>
+    <p>{{5}}</p>
+    <p>{{5 | square}}</p>
+
+    <p>{{5 | power : 3}}</p>
+
+    <p>{{"@" | concat :'Índia':'Chennai' }}</p>
+
+</div>

@@ -1,0 +1,27 @@
+<p>update-account works!</p>
+
+{{account | json}}
+<div>
+    <h3> Update Account:</h3>
+    <div *ngIf="message" class="alert alert-success">
+        <p> {{message}}</p>
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger">
+        <p> {{errorMessage}}</p>
+    </div>
+    <form *ngIf="account">
+        <label for="name">Name</label><br>
+        <input type="text" id="name" name="name" [(ngModel)]="account.name"><br>
+
+        <label for="amount">Amount</label><br>
+        <input type="number" id="amount" name="amount" [(ngModel)]="account.amount"><br>
+       
+        <label for="email">Email</label><br>
+        <input type="email" id="email" name="email" [(ngModel)]="account.email" disabled readonly><br>
+       
+        <label for="password">Password</label><br>
+        <input type="password" id="password" name="password" [(ngModel)]="account.password"><br>
+
+        <button (click)="updateAccount()" class="btn btn-success">Update Account</button>
+    </form>
+</div>
