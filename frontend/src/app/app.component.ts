@@ -11,7 +11,7 @@ import { RouterLink,RouterLinkActive } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-
+  template: string = "<h1>Hello World</h1>";
   isUserLogedIn:boolean=true;
 
  }
