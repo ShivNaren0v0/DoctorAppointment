@@ -13,22 +13,10 @@ public class Refund {
     private Integer id;
     private String refund_status;
     private Double refund_amount;
-//    @OneToOne
-//    Payment payment;
 
-//    public Payment getPayment() {
-//        return payment;
-//    }
-//
-//    public void setPayment(Payment payment) {
-//        this.payment = payment;
-//    }
-
-    public Refund(Integer id, String refund_status, Double refund_amount, Payment payment) {
-        this.id = id;
+    public Refund(String refund_status, Double refund_amount) {
         this.refund_status = refund_status;
         this.refund_amount = refund_amount;
-//        this.payment = payment;
     }
 
     public Integer getId() {

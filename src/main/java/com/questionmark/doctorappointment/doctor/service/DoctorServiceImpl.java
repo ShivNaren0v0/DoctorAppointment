@@ -16,9 +16,7 @@ import java.util.Optional;
 @Service
 public class DoctorServiceImpl implements DoctorService{
     private final DoctorRepository doctorRepository;
-
     private final AppointmentRepository appointmentRepository;
-
     private final PaymentRepository paymentRepository;
 
     @Autowired
@@ -29,15 +27,12 @@ public class DoctorServiceImpl implements DoctorService{
     }
 
     @Override
-    public Integer cancelAppointment(Integer appointmentId) throws DoctorExceptions{
+    public Appointment cancelAppointment(Integer appointmentId) throws DoctorExceptions{
 
         Optional<Appointment> appointmentOptional = this.appointmentRepository.findById(appointmentId);
         if(appointmentOptional.isEmpty()){
             throw new DoctorExceptions("Appointment does not exist.");
         }
-
-
-
         Appointment appointment = appointmentOptional.get();
         appointment.setStatus(false);
         Payment payment = appointment.getPayment();
@@ -51,7 +46,7 @@ public class DoctorServiceImpl implements DoctorService{
             this.appointmentRepository.delete(appointment);
         }
 
-        return appointmentId;
+        return appointment;
     }
 
 

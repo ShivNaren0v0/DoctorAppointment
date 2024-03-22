@@ -17,8 +17,6 @@ public class Payment {
     private LocalDate paymentDate;
     private Double amount;
     private Boolean successful;
-
-    @Value(value = "false")
     private Boolean cancelled;
     private String paymentMethod;
 
@@ -51,6 +49,7 @@ public class Payment {
 
     @OneToOne
     private Refund refund;
+
     public Payment(Integer paymentId, LocalDate paymentDate, Double amount, Boolean successful, Boolean cancelled) {
         this.paymentId = paymentId;
         this.paymentDate = paymentDate;

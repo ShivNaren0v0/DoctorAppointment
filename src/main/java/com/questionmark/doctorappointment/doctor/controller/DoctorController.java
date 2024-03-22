@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.awt.geom.PathIterator;
 import java.util.List;
-
 @CrossOrigin("http://localhost:4200/")
 @RestController
 public class DoctorController {
@@ -36,17 +35,16 @@ public class DoctorController {
         return this.doctorService.confirmAppointment(confirmationDTO.getAppointmentId(), confirmationDTO.getAmount());
     }
 
-    @PostMapping("doctor/cancel_appointment")
-    Integer cancelAppointment(@RequestBody Integer appointmentId) throws DoctorExceptions{
+    @PostMapping("doctor/cancel_appointment/{appointmentId}")
+    Appointment cancelAppointment(@PathVariable Integer appointmentId) throws DoctorExceptions {
         return this.doctorService.cancelAppointment(appointmentId);
     }
 
-    @GetMapping("doctor/get_appointment")
-    List<Appointment> getAppointments(@RequestBody Integer doctorId) throws DoctorExceptions{
+    @GetMapping("doctor/get_appointment/{doctorId}")
+    List<Appointment> getAppointments(@PathVariable Integer doctorId) throws DoctorExceptions{
         return this.doctorService.getAllAppointmentOfDoctor(doctorId);
     }
 
-    
 
 
 }

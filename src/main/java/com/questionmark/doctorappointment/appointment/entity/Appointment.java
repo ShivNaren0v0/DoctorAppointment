@@ -1,23 +1,19 @@
 package com.questionmark.doctorappointment.appointment.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.questionmark.doctorappointment.doctor.entity.Doctor;
-import com.questionmark.doctorappointment.patient.entity.Patient;
 import com.questionmark.doctorappointment.payment.entity.Payment;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
+//@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"date", "timing"}))
 public class Appointment {
     @Id
-    @GeneratedValue
+    @GeneratedValue  // (strategy = GenerationType.IDENTITY, generator = "native")
     private Integer id;
     private Integer patientId;
-
-
     private Integer doctorId;
     private String description;
     private LocalDate date;
