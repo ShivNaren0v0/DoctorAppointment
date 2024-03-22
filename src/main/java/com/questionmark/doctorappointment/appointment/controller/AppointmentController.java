@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+@CrossOrigin("http://localhost:4200/")
 @RestController
 public class AppointmentController {
     @Autowired

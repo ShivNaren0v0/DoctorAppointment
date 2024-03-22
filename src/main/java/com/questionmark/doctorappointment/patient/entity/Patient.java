@@ -2,6 +2,7 @@ package com.questionmark.doctorappointment.patient.entity;
 
 import com.questionmark.doctorappointment.appointment.entity.Appointment;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,16 +19,25 @@ import java.util.List;
 public class Patient {
     @Id
     @GeneratedValue
+
     private Integer patientId;
+    @NotBlank(message = "email cannot be empty")
+    @Email(message = "Email should be valid")
     private String email;
+    @NotBlank(message = "password cannot be empty")
+    @Size(min = 5, message = "Password must have at least 2 characters")
     private String password;
+    @NotNull(message = "age cannot be empty")
     private Integer age;
+    @NotBlank(message = "Gender cannot be empty")
     private String gender;
+    @NotBlank(message = "Name cannot be empty")
     private String name;
 
     @OneToMany
     private List<Appointment> appointments= new ArrayList<>();
     public Patient(Integer patientId, String email, String password, Integer age, String gender, String name, List<Appointment> appointments) {
+
         this.patientId = patientId;
         this.email = email;
         this.password = password;

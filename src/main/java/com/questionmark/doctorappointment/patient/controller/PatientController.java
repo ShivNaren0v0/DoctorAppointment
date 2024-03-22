@@ -20,34 +20,28 @@ import java.util.List;
  * @version 1.0
  * @since   2024-02-19
  */
+@CrossOrigin("http://localhost:4200/")
 @RestController
 public class PatientController {
     private final PatientService patientService;
-
     @Autowired
     public PatientController(PatientService patientService){
         this.patientService = patientService;
     }
-
     @GetMapping("patient/get_all_patient")
     public List<Patient> getAllPatients(){return this.patientService.getAllPatient();}
-
     @PostMapping("patient/create_account")
     public Patient createAccount(@RequestBody Patient patient) throws PatientExceptions {
         return this.patientService.addPatient(patient);
     }
-
     @GetMapping("patient/get_appointments/{patientId}")
     public List<Appointment> getAppointments(@PathVariable Integer patientId) throws PatientExceptions {return this.patientService.getAllAppointmentOfPatient(patientId);}
-
     @GetMapping("patient/get_doctors/{spec}")
     public List<Doctor> getDoctorsBySpec(@PathVariable String spec){return this.patientService.getDoctorsBySpec(spec);}
-
     @PostMapping("patient/perform_payment/{id}")
     public Payment performPayment(@RequestBody String method, @PathVariable Integer id) throws PatientExceptions {
         return this.patientService.performPaymentForAppointment(method,id);
     }
-
     @PostMapping("patient/AppointmentStatus/{id}")
     public String getAppointmentStatus(@RequestBody Integer appointmentId, @PathVariable Integer id){
         return this.patientService.getStatusofAppointment(id,appointmentId);
@@ -56,6 +50,7 @@ public class PatientController {
     public Patient loginPatient(@RequestBody LoginDTO loginDTO) throws PatientExceptions{
         return this.patientService.login(loginDTO);
     }
+
 
 
 }

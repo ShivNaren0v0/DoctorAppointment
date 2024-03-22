@@ -13,14 +13,12 @@ import com.questionmark.doctorappointment.patient.dao.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.questionmark.doctorappointment.patient.entity.Patient;
 import com.questionmark.doctorappointment.patient.service.PatientService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.awt.geom.PathIterator;
 import java.util.List;
 
+@CrossOrigin("http://localhost:4200/")
 @RestController
 public class DoctorController {
 
