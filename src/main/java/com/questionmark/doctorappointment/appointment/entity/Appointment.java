@@ -17,7 +17,7 @@ public class Appointment {
     private Integer doctorId;
     private String description;
     private LocalDate date;
-    @JsonFormat(pattern = "HH:mm:ss")
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime timing;
     @OneToOne
     private Payment payment;

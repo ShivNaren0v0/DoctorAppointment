@@ -57,9 +57,10 @@ public class AppointmentServiceImpl implements AppointmentService {
         if (patientUnavailable) {
             throw new AppointmentExceptions("The patient already has an appointment at the specified date and time.");
         }
+        this.appointmentRepository.save(newAppointment);
         this.doctorRepository.save(doctor);
         this.patientRepository.save(patient);
-        return this.appointmentRepository.save(newAppointment);
+        return newAppointment;
     }
 
     @Override
@@ -72,11 +73,35 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public ResponseEntity<String> deleteAppointmentById(Integer id) throws AppointmentExceptions {
-        Appointment appointment = appointmentRepository.findById(id)
+        Appointment appointment = this.appointmentRepository.findById(id)
                 .orElseThrow(() -> new AppointmentExceptions("Appointment not found with id: " + id));
-        appointmentRepository.delete(appointment);
+
+        // Retrieve patientId and doctorId
+        Integer patientId = appointment.getPatientId();
+        Integer doctorId = appointment.getDoctorId();
+
+        // Delete appointment from doctor's list (if applicable)
+        if (doctorId != null) {
+            Doctor doctor = this.doctorRepository.findById(doctorId)
+                    .orElseThrow(() -> new AppointmentExceptions("Doctor not found with id: " + doctorId));
+            doctor.getAppointmentList().remove(appointment);
+            this.doctorRepository.save(doctor);
+        }
+
+        // Delete appointment from patient's list (if applicable)
+        if (patientId != null) {
+            Patient patient = this.patientRepository.findById(patientId)
+                    .orElseThrow(() -> new AppointmentExceptions("Patient not found with id: " + patientId));
+            patient.getAppointments().remove(appointment);
+            this.patientRepository.save(patient);
+        }
+
+        // Finally, delete the appointment
+        this.appointmentRepository.delete(appointment);
+
         return ResponseEntity.ok("Appointment deleted successfully.");
     }
+
 
     @Override
     public List<Appointment> getAllAppointments() throws AppointmentExceptions
@@ -116,8 +141,10 @@ public class AppointmentServiceImpl implements AppointmentService {
         List<Appointment> appointmentOpt=this.appointmentRepository.findAll();
         if(appointmentOpt.isEmpty())
             throw new AppointmentExceptions("There is no appointments");
-        else
-            appointmentRepository.deleteAll();
+        else {
+
+            this.appointmentRepository.deleteAll();
+        }
 
     }
 
