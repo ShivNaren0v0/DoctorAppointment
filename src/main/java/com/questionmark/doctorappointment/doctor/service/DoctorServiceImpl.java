@@ -4,6 +4,9 @@ import com.questionmark.doctorappointment.appointment.dao.AppointmentRepository;
 import com.questionmark.doctorappointment.doctor.dao.DoctorRepository;
 import com.questionmark.doctorappointment.doctor.entity.Doctor;
 import com.questionmark.doctorappointment.doctor.exceptions.DoctorExceptions;
+import com.questionmark.doctorappointment.doctor.dto.LoginDTo;
+import com.questionmark.doctorappointment.patient.entity.Patient;
+import com.questionmark.doctorappointment.patient.exceptions.PatientExceptions;
 import com.questionmark.doctorappointment.payment.dao.PaymentRepository;
 import com.questionmark.doctorappointment.payment.entity.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +82,21 @@ public class DoctorServiceImpl implements DoctorService{
         }
         return optionalDoctor.get().getAppointmentList();
     }
+
+    @Override
+    public Doctor login(LoginDTo loginDTo) throws DoctorExceptions {
+        Optional<Doctor> doctorOptional = Optional.ofNullable(this.doctorRepository.findByName(loginDTo.getName()));
+        if(doctorOptional.isEmpty())
+                throw new DoctorExceptions("Account does not exists for :"+loginDTo.getName());
+
+        Doctor doctorAccount = doctorOptional.get();
+
+        if(doctorAccount.getSpec().trim().equals(loginDTo.getSpec().trim()))
+            return doctorAccount;
+        else
+            throw new DoctorExceptions("Spec does not match");
+    }
+
 
 
 }

@@ -10,6 +10,8 @@ import com.questionmark.doctorappointment.doctor.entity.Doctor;
 import com.questionmark.doctorappointment.doctor.exceptions.DoctorExceptions;
 import com.questionmark.doctorappointment.doctor.service.DoctorService;
 import com.questionmark.doctorappointment.patient.dao.PatientRepository;
+import com.questionmark.doctorappointment.doctor.dto.LoginDTo;
+import com.questionmark.doctorappointment.patient.exceptions.PatientExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.questionmark.doctorappointment.patient.entity.Patient;
 import com.questionmark.doctorappointment.patient.service.PatientService;
@@ -43,6 +45,11 @@ public class DoctorController {
     @GetMapping("doctor/get_appointment/{doctorId}")
     List<Appointment> getAppointments(@PathVariable Integer doctorId) throws DoctorExceptions{
         return this.doctorService.getAllAppointmentOfDoctor(doctorId);
+    }
+
+    @PostMapping("doctor/login")
+    public Doctor loginDoctor(@RequestBody LoginDTo loginDTo) throws DoctorExceptions {
+        return this.doctorService.login(loginDTo);
     }
 
 

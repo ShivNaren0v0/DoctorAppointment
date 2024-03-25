@@ -28,6 +28,14 @@ dependencies {
 	runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
+//	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-config
+//	implementation("org.springframework.security:spring-security-config")
+//
+//// https://mvnrepository.com/artifact/org.springframework.security/spring-security-core
+//	implementation("org.springframework.security:spring-security-core")
+//// https://mvnrepository.com/artifact/org.springframework.security/spring-security-web
+//	implementation("org.springframework.security:spring-security-web")
+
 }
 
 tasks.withType<Test> {
