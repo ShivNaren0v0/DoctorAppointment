@@ -11,11 +11,9 @@ public class DoctorReview {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "DOC_ID")
     private Doctor doctor; // Reference to the doctor being reviewed
 
     @ManyToOne
-    @JoinColumn(name = "PATIENT_ID")
     private Patient patient;
     private int rating; // Rating (e.g., 1 to 5 stars for now)
     private String reviewText;

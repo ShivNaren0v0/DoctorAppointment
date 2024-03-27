@@ -43,6 +43,11 @@ public class DoctorReviewServiceImpl implements DoctorReviewService{
     }
 
     @Override
+    public List<DoctorReview> getallReviews() {
+        return this.doctorReviewRepository.findAll();
+    }
+
+    @Override
     public DoctorReview updateReview(DoctorReview doctorReview, int doctorId, int patientId, int appointment_ID) {
         Optional<Doctor> doctorOptional = this.doctorRepository.findById(doctorId);
         Optional<Patient> patientOptional = this.patientRepository.findById(patientId);

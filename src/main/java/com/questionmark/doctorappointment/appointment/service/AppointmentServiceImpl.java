@@ -30,7 +30,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     private AppointmentRepository appointmentRepository;
     @Autowired
     private DoctorServiceImpl doctorServiceImpl;
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    //@Transactional(isolation = Isolation.SERIALIZABLE)
     @Override
     public Appointment createAppointment(Appointment newAppointment) throws AppointmentExceptions {
         Doctor doctor = this.doctorRepository.findById(newAppointment.getDoctorId())
