@@ -20,7 +20,7 @@ import java.util.List;
  * @version 1.0
  * @since   2024-02-19
  */
-@CrossOrigin("http://localhost:4200/")
+@CrossOrigin
 @RestController
 public class PatientController {
     private final PatientService patientService;
