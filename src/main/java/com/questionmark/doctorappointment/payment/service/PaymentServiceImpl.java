@@ -8,6 +8,7 @@ import com.questionmark.doctorappointment.refund.entity.Refund;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -31,6 +32,8 @@ public class PaymentServiceImpl implements PaymentService{
         payment.setSuccessful(true);
         payment.setCancelled(false);
         payment.setRefund(null);
+        payment.setAmount(200.00);
+        payment.setPaymentDate(LocalDate.now());
         return this.paymentRepository.save(payment);
     }
 
